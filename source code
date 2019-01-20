@@ -1,0 +1,33 @@
+        try{
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            Connection conn= DriverManager.getConnection("jdbc:mysql://localhost:3306/boq","root","");
+            for(int row=0; row<jTable1.getRowCount(); row++){
+                int id = row+1;
+                String work = (String)jTable1.getValueAt(row, 1);
+                String description = (String)jTable1.getValueAt(row, 2);
+                String unit = (String)jTable1.getValueAt(row, 3);
+                //double unit=Double.parseDouble(unitStr);
+                String rateStr = (String)jTable1.getValueAt(row, 4);
+                double rate=Double.parseDouble(rateStr);
+                String quantityStr = (String)jTable1.getValueAt(row, 5);
+                double quantity=Double.parseDouble(quantityStr);
+                String amountStr = (String)jTable1.getValueAt(row, 6);
+                double amount=Double.parseDouble(amountStr);
+                Date begins=(Date) jTable1.getValueAt(row, 7);
+                Date ends=(Date) jTable1.getValueAt(row, 8);
+                String duration = (String)jTable1.getValueAt(row, 9);
+                //int duration=Integer.parseInt(durationStr);
+                //insertStr="insert into `test` (ID,work,description,unit,rate,quantity,amount,begins,ends,duration) values("+id+",'"+work+"','"+description+"','"+unit+"','"+rate+"','"+quantity+"','"+amount+"','"+begins+"','"+ends+"','"+duration+"');";
+                insertStr="insert into `test` (ID,work,description,unit,rate,quantity,amount,begins,ends,duration) values(`"+id+"`,`"+work+"`,`"+description
+                        +"`,`"+unit+"`,`"+rate+"`,`"+quantity+"`,`"+amount+"`,`"+begins+"`,`"+ends+"`,`"+duration+"`);";
+                
+                PreparedStatement pst=conn.prepareStatement(insertStr);
+                //PreparedStatement pst=conn.prepareStatement(insertStr);
+                java.sql.ResultSet rs= pst.executeQuery();
+                JOptionPane.showMessageDialog(null, "updated");
+            } 
+            JOptionPane.showMessageDialog(null, "updated");
+        }
+        catch(ClassNotFoundException | SQLException e){
+            JOptionPane.showMessageDialog(null, "Not updated");
+        }
